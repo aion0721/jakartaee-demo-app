@@ -1,5 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html>
-<html xmlns:h="jakarta.faces.html">
+<html xmlns:h="jakarta.faces.html" xmlns:p="http://primefaces.org/ui">
 	<h:head>
 		<title>DetailPages</title>
 	</h:head>
@@ -7,18 +8,12 @@
 		<h2>Create item</h2>
 		<h:form>
 			<div>
-				Title: <h:inputText value="#{reportNewBean.title}" />
+				Title: <p:inputText value="#{reportNewBean.title}" />
 			</div>
 			<div>
-				Detail:<h:inputTextarea value="#{reportNewBean.detail}" rows="6" />
+				Detail:<p:inputTextarea value="#{reportNewBean.detail}" rows="6" />
 			</div>
-			<h:commandButton value="Send" />
+			<p:commandButton value="Send" />
 		</h:form>
-		<div>
-			Title: <h:outputText value="#{reportNewBean.title}" />
-		</div>
-		<div>
-			Detail:<h:outputText value="#{reportNewBean.detail}" style="white-space: pre-wrap;" />
-		</div>
 	</h:body>
 </html>
