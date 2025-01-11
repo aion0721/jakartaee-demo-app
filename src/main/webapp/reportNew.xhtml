@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:h="jakarta.faces.html">
+	<h:head>
+		<title>DetailPages</title>
+	</h:head>
+	<h:body>
+		<h2>Create item</h2>
+		<h:form>
+			<div>
+				Title: <h:inputText value="#{reportNewBean.title}" />
+			</div>
+			<div>
+				Detail:<h:inputTextarea value="#{reportNewBean.detail}" rows="6" />
+			</div>
+			<h:commandButton value="Send" />
+		</h:form>
+		<div>
+			Title: <h:outputText value="#{reportNewBean.title}" />
+		</div>
+		<div>
+			Detail:<h:outputText value="#{reportNewBean.detail}" style="white-space: pre-wrap;" />
+		</div>
+	</h:body>
+</html>
