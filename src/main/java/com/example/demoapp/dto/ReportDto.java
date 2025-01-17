@@ -11,6 +11,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class ReportDto{
+	private Integer reportId;
 	private String title;
 	private String detail;
 }
