@@ -5,24 +5,51 @@ import java.util.List;
 
 import com.example.demoapp.dto.ReportDto;
 
-import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 
-@ApplicationScoped
+import jakarta.enterprise.context.RequestScoped;
+import com.example.demoapp.infrastructure.entity.ReportEntity;
+
+import jakarta.transaction.Transactional;
+import java.util.stream.Stream;
+
+@RequestScoped
+@Transactional
 public class ReportRepository{
-	private List<ReportDto> reports = new ArrayList<>();
-	private Integer maxReportId = 0;
+	@PersistenceContext
+	private EntityManager em;
 
 	public List<ReportDto> findAll(){
-		return reports;
+		Stream<ReportEntity> reportStream = em.createQuery("select r from ReportEntity r", ReportEntity.class).getResultStream();
+		return reportStream.map(ReportRepository::convertToDto).toList();
 	}
 
-	public ReportDto findById(Integer id){
-		return reports.get(id);
+	public ReportDto findById(Integer id) {
+       ReportEntity report = em.find(ReportEntity.class, id);
+       return convertToDto(report);
+   }
+
+	static private ReportDto convertToDto(ReportEntity entity){
+		ReportDto report = new ReportDto();
+		report.setReportId(entity.getReportId());
+		report.setTitle(entity.getTitle());
+		report.setDetail(entity.getDetail());
+
+		return report;
 	}
 
 	public void create(ReportDto report){
-		report.setReportId(maxReportId);
-		maxReportId += 1;
-		reports.add(report);
+		ReportEntity entity = convertToEntity(report);
+		em.persist(entity);
+	}
+
+	static private ReportEntity convertToEntity(ReportDto dto){
+		ReportEntity report = new ReportEntity();
+		report.setReportId(dto.getReportId());
+		report.setTitle(dto.getTitle());
+		report.setDetail(dto.getDetail());
+
+		return report;
 	}
 }
