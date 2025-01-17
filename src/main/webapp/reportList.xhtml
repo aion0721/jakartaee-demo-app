@@ -7,6 +7,7 @@
     </h:head>
     <h:body>
         <h2>明細の一覧</h2>
+        <p:link outcome="/reportNew.xhtml" value="Create" />
         <h:form>
             <p:dataTable value="#{reportListBean.reports}" var="report">
                 <p:column headerText="タイトル">
